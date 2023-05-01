@@ -1,9 +1,9 @@
 import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
-import { Observable, of } from "rxjs";
+import { Observable, from, of } from "rxjs";
 import Note from "./interfaces/note";
 import invokeFactory from "./utils/invoke_pipe";
 import { Cmd } from "./interfaces/cmd";
-import { ThemeSelectorService } from "./shared/theme-selector.service";
+import { appWindow } from "@tauri-apps/api/window";
 
 @Component({
   selector: "app-root",
@@ -13,21 +13,15 @@ import { ThemeSelectorService } from "./shared/theme-selector.service";
 export class AppComponent implements OnInit {
   @ViewChild("thema") thema?: ElementRef;
   list: Observable<Note[]> = of([] as Note[]);
-  constructor(public themeSelector: ThemeSelectorService) {}
+  constructor() {}
   ngOnInit(): void {
     this.list = invokeFactory(Cmd.BROWSE_NOTE);
-    this.themeSelector.theme$.subscribe((val) =>
-      this.thema?.nativeElement.setAttribute("data-theme", val)
-    );
+    appWindow.listen("menu-selected", (event) => {
+      this.thema?.nativeElement.setAttribute("data-theme", event.payload);
+    });
   }
   addNote(event: SubmitEvent, title: string, body: string): void {
     event.preventDefault();
     invokeFactory(Cmd.ADD_NOTE, { title, body }).subscribe();
-  }
-  changeTheme(e: any) {
-    e.preventDefault();
-    if (e && e.target && e.target.value) {
-      this.themeSelector.theme = e.target.value;
-    }
   }
 }
