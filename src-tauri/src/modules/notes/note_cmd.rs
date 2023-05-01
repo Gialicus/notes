@@ -8,6 +8,7 @@ pub async fn add_note(title: &str, body: &str, ctx: State<'_, AppState>) -> Resu
     Note::add(
         &*db,
         Note {
+            id: Default::default(),
             title: title.to_string(),
             body: body.to_string(),
         },
