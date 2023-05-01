@@ -1,5 +1,14 @@
-<div>
-  <h1 class="text-center">Welcome to Tauri + Angular!</h1>
+<div #thema data-theme="cyberpunk">
+  <h1 class="text-center">Welcome to Gialicus Notes</h1>
+  <select class="select w-full max-w-xs" (change)="changeTheme($event)">
+    <option disabled selected>Pick your theme</option>
+    <option
+      *ngFor="let entries of themeSelector.themes$ | async"
+      [value]="entries[0]"
+    >
+      {{ entries[1] }}
+    </option>
+  </select>
   <div>
     <form (submit)="addNote($event, noteTitle.value, noteBody.value)">
       <div class="m-2">
