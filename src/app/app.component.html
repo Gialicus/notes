@@ -20,5 +20,10 @@
         <button type="submit" class="btn btn-primary btn-outline">Greet</button>
       </div>
     </form>
+    <div *ngFor="let item of list | async">
+      <span class="m-2">{{ item.id }}</span>
+      <span class="m-2">{{ item.title }}</span>
+      <span class="m-2">{{ item.body }}</span>
+    </div>
   </div>
 </div>
