@@ -1,24 +1,24 @@
-<div class="container">
-  <h1>Welcome to Tauri + Angular!</h1>
-  <div class="row">
-    <a href="https://tauri.app" target="_blank">
-      <img src="/assets/tauri.svg" class="logo tauri" alt="Tauri logo" />
-    </a>
-    <a href="https://angular.io" target="_blank">
-      <img src="/assets/angular.svg" class="logo angular" alt="Angular logo" />
-    </a>
-  </div>
-  <p>Click on the logos to learn more about the frameworks</p>
-  <div class="row">
+<div>
+  <h1 class="text-center">Welcome to Tauri + Angular!</h1>
+  <div>
     <form (submit)="addNote($event, noteTitle.value, noteBody.value)">
-      <input #noteTitle id="title-input" placeholder="Enter a name..." />
-      <textarea
-        #noteBody
-        id="body-input"
-        placeholder="Enter a body..."
-      ></textarea>
-      <button type="submit">Greet</button>
+      <div class="m-2">
+        <input
+          #noteTitle
+          placeholder="Enter a name..."
+          class="input input-bordered w-full"
+        />
+      </div>
+      <div class="m-2">
+        <textarea
+          #noteBody
+          placeholder="Enter a body..."
+          class="textarea textarea-bordered w-full h-[25rem]"
+        ></textarea>
+      </div>
+      <div class="m-2">
+        <button type="submit" class="btn btn-primary btn-outline">Greet</button>
+      </div>
     </form>
   </div>
-  <p>{{ greetingMessage }}</p>
 </div>
