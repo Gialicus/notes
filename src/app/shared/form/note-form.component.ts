@@ -9,7 +9,7 @@ import Note from "src/app/interfaces/note";
 })
 export class NoteFormComponent {
   form: FormGroup;
-  @Output() submit: EventEmitter<Note> = new EventEmitter();
+  @Output() save: EventEmitter<Note> = new EventEmitter();
   constructor(private fb: FormBuilder) {
     this.form = this.fb.group({
       title: new FormControl("", []),
@@ -17,6 +17,6 @@ export class NoteFormComponent {
     });
   }
   onSubmit() {
-    this.submit.emit(this.form.value);
+    this.save.emit(this.form.value);
   }
 }

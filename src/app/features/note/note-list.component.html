@@ -2,16 +2,42 @@
   <table class="table w-full">
     <thead>
       <tr>
-        <th>Id</th>
-        <th>Title</th>
-        <th>Text</th>
+        <th class="text-center">Id</th>
+        <th class="text-center">Title</th>
+        <th class="text-center">Text</th>
+        <th class="text-center">
+          <fa-icon
+            [icon]="addIcon"
+            size="2x"
+            (click)="goToAddNote()"
+            class="btn btn-ghost btn-circle"
+          ></fa-icon>
+        </th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let item of list | async" class="hover">
-        <th>{{ item.id }}</th>
-        <td>{{ item.title }}</td>
-        <td>{{ item.body }}</td>
+        <th class="text-center">{{ item.id }}</th>
+        <td class="text-center">{{ item.title }}</td>
+        <td class="text-center">{{ item.body }}</td>
+        <td class="text-center">
+          <button>
+            <fa-icon
+              [icon]="editIcon"
+              size="2x"
+              (click)="goToAddNote()"
+              class="btn btn-ghost btn-circle"
+            ></fa-icon>
+          </button>
+          <button>
+            <fa-icon
+              [icon]="deleteIcon"
+              size="2x"
+              (click)="goToAddNote()"
+              class="btn btn-ghost btn-circle"
+            ></fa-icon>
+          </button>
+        </td>
       </tr>
     </tbody>
   </table>
