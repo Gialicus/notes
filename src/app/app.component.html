@@ -1,29 +1,7 @@
 <div #thema data-theme="cyberpunk">
   <h1 class="text-center">Welcome to Gialicus Notes</h1>
   <div>
-    <form (submit)="addNote($event, noteTitle.value, noteBody.value)">
-      <div class="m-2">
-        <input
-          #noteTitle
-          placeholder="Enter a name..."
-          class="input input-bordered w-full"
-        />
-      </div>
-      <div class="m-2">
-        <textarea
-          #noteBody
-          placeholder="Enter a body..."
-          class="textarea textarea-bordered w-full h-[25rem]"
-        ></textarea>
-      </div>
-      <div class="m-2">
-        <button type="submit" class="btn btn-primary btn-outline">Greet</button>
-      </div>
-    </form>
-    <div *ngFor="let item of list | async">
-      <span class="m-2">{{ item.id }}</span>
-      <span class="m-2">{{ item.title }}</span>
-      <span class="m-2">{{ item.body }}</span>
-    </div>
+    <app-note-form (submit)="addNote($event)"></app-note-form>
+    <app-note-list></app-note-list>
   </div>
 </div>
