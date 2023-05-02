@@ -1,9 +1,9 @@
-import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
-import { Observable, of } from "rxjs";
+import { Component, Inject, OnInit, Renderer2 } from "@angular/core";
 import Note from "./interfaces/note";
 import invokeFactory from "./utils/invoke_pipe";
 import { Cmd, RustEvent } from "./interfaces/cmd";
 import { appWindow } from "@tauri-apps/api/window";
+import { DOCUMENT } from "@angular/common";
 
 @Component({
   selector: "app-root",
@@ -11,14 +11,17 @@ import { appWindow } from "@tauri-apps/api/window";
   styles: [],
 })
 export class AppComponent implements OnInit {
-  @ViewChild("thema") thema?: ElementRef;
-  constructor() {}
+  constructor(
+    @Inject(DOCUMENT) private document: Document,
+    private renderer: Renderer2
+  ) {}
   ngOnInit(): void {
     appWindow.listen(RustEvent.MENU_SELECTED, (event) => {
-      this.thema?.nativeElement.setAttribute("data-theme", event.payload);
+      this.renderer.setAttribute(
+        this.document.body,
+        "data-theme",
+        event.payload as string
+      );
     });
-  }
-  addNote(event: Note): void {
-    invokeFactory(Cmd.ADD_NOTE, { ...event }).subscribe();
   }
 }

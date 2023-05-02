@@ -23,9 +23,8 @@ export class NoteListComponent implements OnInit {
   constructor(private router: Router) {}
   ngOnInit(): void {
     this.list = invokeFactory(Cmd.BROWSE_NOTE);
-    console.log(this.router.url);
   }
   goToAddNote() {
-    this.router.navigateByUrl("notes/add").then(console.log);
+    this.router.navigateByUrl("notes/add");
   }
 }
