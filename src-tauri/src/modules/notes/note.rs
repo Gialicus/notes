@@ -7,3 +7,9 @@ pub struct Note {
     pub title: String,
     pub body: String,
 }
+
+#[derive(Debug, Serialize, Deserialize, FromRow)]
+pub struct UpdateNote {
+    pub title: Option<String>,
+    pub body: Option<String>,
+}

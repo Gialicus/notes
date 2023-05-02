@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
-import { Observable, from, of } from "rxjs";
+import { Observable, of } from "rxjs";
 import Note from "./interfaces/note";
 import invokeFactory from "./utils/invoke_pipe";
 import { Cmd } from "./interfaces/cmd";

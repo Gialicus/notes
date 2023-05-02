@@ -25,7 +25,10 @@ fn main() {
         .on_menu_event(|event| handle_app_menu(event))
         .invoke_handler(tauri::generate_handler![
             modules::notes::note_cmd::add_note,
-            modules::notes::note_cmd::browse_note
+            modules::notes::note_cmd::browse_note,
+            modules::notes::note_cmd::edit_note,
+            modules::notes::note_cmd::delete_note,
+            modules::notes::note_cmd::read_note,
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
