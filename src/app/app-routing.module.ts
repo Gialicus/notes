@@ -13,6 +13,10 @@ const routes: Routes = [
     path: "notes/add",
     component: NoteAddComponent,
   },
+  {
+    path: "notes/edit",
+    component: NoteAddComponent,
+  },
 ];
 
 @NgModule({
