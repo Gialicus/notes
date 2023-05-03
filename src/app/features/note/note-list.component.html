@@ -25,7 +25,7 @@
             <fa-icon
               [icon]="editIcon"
               size="2x"
-              (click)="goToAddNote()"
+              (click)="goToEditNote(item.id)"
               class="btn btn-ghost btn-circle"
             ></fa-icon>
           </button>
@@ -33,7 +33,7 @@
             <fa-icon
               [icon]="deleteIcon"
               size="2x"
-              (click)="goToAddNote()"
+              (click)="deleteNote(item.id)"
               class="btn btn-ghost btn-circle"
             ></fa-icon>
           </button>

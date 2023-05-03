@@ -1,3 +1,6 @@
 <div class="h-full">
-  <app-note-form (save)="editNote($event)"></app-note-form>
+  <app-note-form
+    (save)="editNote($event)"
+    [note]="note$ | async"
+  ></app-note-form>
 </div>

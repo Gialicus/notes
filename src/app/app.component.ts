@@ -1,7 +1,5 @@
 import { Component, Inject, OnInit, Renderer2 } from "@angular/core";
-import Note from "./interfaces/note";
-import invokeFactory from "./utils/invoke_pipe";
-import { Cmd, RustEvent } from "./interfaces/cmd";
+import { RustEvent } from "./interfaces/cmd";
 import { appWindow } from "@tauri-apps/api/window";
 import { DOCUMENT } from "@angular/common";
 

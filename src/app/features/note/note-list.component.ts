@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
-import { Observable, of } from "rxjs";
+import { Observable, of, switchMap } from "rxjs";
 import { Cmd } from "src/app/interfaces/cmd";
-import Note from "src/app/interfaces/note";
+import { Note } from "src/app/interfaces/note";
 import invokeFactory from "src/app/utils/invoke_pipe";
 import {
   faCirclePlus,
@@ -26,5 +26,16 @@ export class NoteListComponent implements OnInit {
   }
   goToAddNote() {
     this.router.navigateByUrl("notes/add");
+  }
+  goToEditNote(id: string) {
+    this.router.navigateByUrl("notes/edit?id=" + id);
+  }
+  deleteNote(id: string) {
+    console.log(id);
+    if (confirm("Are you sure to delete " + id)) {
+      this.list = invokeFactory(Cmd.DELETE_NOTE, { id: String(id) }).pipe(
+        switchMap(() => invokeFactory<Note[]>(Cmd.BROWSE_NOTE))
+      );
+    }
   }
 }

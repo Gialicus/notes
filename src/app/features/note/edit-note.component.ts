@@ -1,8 +1,8 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
-import { Observable, map, switchMap } from "rxjs";
+import { Observable, filter, map, of, skipWhile, switchMap, tap } from "rxjs";
 import { Cmd } from "src/app/interfaces/cmd";
-import Note from "src/app/interfaces/note";
+import { Note } from "src/app/interfaces/note";
 import invokeFactory from "src/app/utils/invoke_pipe";
 
 @Component({
@@ -10,18 +10,22 @@ import invokeFactory from "src/app/utils/invoke_pipe";
   templateUrl: "./edit-note.component.html",
   styles: [],
 })
-export class EditNoteComponent {
-  note$: Observable<Note>;
-  constructor(private router: Router, private route: ActivatedRoute) {
-    this.note$ = this.route.params.pipe(
-      map((param) => param["id"]),
+export class EditNoteComponent implements OnInit {
+  note$: Observable<Note> = of();
+  private id: string | null = null;
+  constructor(private router: Router, private route: ActivatedRoute) {}
+  ngOnInit(): void {
+    this.note$ = this.route.queryParamMap.pipe(
+      map((param) => param.get("id")),
+      skipWhile((id) => !id),
+      tap((id) => (this.id = id)),
       switchMap((id) => invokeFactory<Note>(Cmd.READ_NOTE, { id }))
     );
   }
   editNote(event: Note): void {
     invokeFactory(Cmd.EDIT_NOTE, {
-      title: event.title,
-      body: event.body,
+      id: this.id,
+      body: event,
     }).subscribe(() => this.router.navigateByUrl("/notes/list"));
   }
 }

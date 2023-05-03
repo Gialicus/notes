@@ -1,5 +1,10 @@
-export default interface Note {
-  id: number;
+export interface Note {
+  id: string;
   title: string;
   body: string;
+}
+
+export interface UpdateNote {
+  id: string;
+  body: Partial<Note>;
 }

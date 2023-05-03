@@ -1,7 +1,7 @@
 import { Component } from "@angular/core";
 import { Router } from "@angular/router";
 import { Cmd } from "src/app/interfaces/cmd";
-import Note from "src/app/interfaces/note";
+import { Note } from "src/app/interfaces/note";
 import invokeFactory from "src/app/utils/invoke_pipe";
 
 @Component({
