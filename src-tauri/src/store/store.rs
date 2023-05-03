@@ -19,6 +19,7 @@ pub async fn get_db_pool() -> AppState {
         println!("Database already exists");
     }
     let db = SqlitePool::connect(DB_URL).await.unwrap();
+    //notes
     sqlx::query(
         "
     CREATE TABLE IF NOT EXISTS notes 
@@ -29,7 +30,20 @@ pub async fn get_db_pool() -> AppState {
     .execute(&db)
     .await
     .unwrap();
+    //links
+    sqlx::query(
+        "
+    CREATE TABLE IF NOT EXISTS links 
+    (id INTEGER PRIMARY KEY NOT NULL, 
+    target INTEGER NOT NULL,
+    source INTEGER NOT NULL,
+    FOREIGN KEY(target) REFERENCES notes(id),
+    FOREIGN KEY(source) REFERENCES notes(id));",
+    )
+    .execute(&db)
+    .await
+    .unwrap();
+
     let db = Arc::new(Mutex::new(db));
     AppState { db }
-    // println!("Create user table result: {:?}", result);
 }
