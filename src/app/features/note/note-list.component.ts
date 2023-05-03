@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { Observable, of, switchMap } from "rxjs";
+import { Observable, of, skipWhile, switchMap, tap } from "rxjs";
 import { Cmd } from "src/app/interfaces/cmd";
 import { Note } from "src/app/interfaces/note";
 import invokeFactory from "src/app/utils/invoke_pipe";
@@ -9,6 +9,7 @@ import {
   faClose,
 } from "@fortawesome/free-solid-svg-icons";
 import { Router } from "@angular/router";
+import confirmPipe from "src/app/utils/confirm";
 
 @Component({
   selector: "app-note-list",
@@ -30,12 +31,13 @@ export class NoteListComponent implements OnInit {
   goToEditNote(id: string) {
     this.router.navigateByUrl("notes/edit?id=" + id);
   }
-  deleteNote(id: string) {
-    console.log(id);
-    if (confirm("Are you sure to delete " + id)) {
-      this.list = invokeFactory(Cmd.DELETE_NOTE, { id: String(id) }).pipe(
+  async deleteNote(id: string) {
+    confirmPipe("Delete note with id: " + id)
+      .pipe(
+        skipWhile((value) => !value),
+        switchMap(() => invokeFactory(Cmd.DELETE_NOTE, { id: String(id) })),
         switchMap(() => invokeFactory<Note[]>(Cmd.BROWSE_NOTE))
-      );
-    }
+      )
+      .subscribe((list) => (this.list = of(list)));
   }
 }
