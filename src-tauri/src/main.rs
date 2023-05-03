@@ -29,6 +29,7 @@ fn main() {
             modules::notes::note_cmd::edit_note,
             modules::notes::note_cmd::delete_note,
             modules::notes::note_cmd::read_note,
+            modules::links::link_cmd::add_link
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
