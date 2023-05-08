@@ -1,0 +1,7 @@
+CREATE TABLE IF NOT EXISTS links (
+    id INTEGER PRIMARY KEY NOT NULL, 
+    target INTEGER NOT NULL,
+    source INTEGER NOT NULL,
+    FOREIGN KEY(target) REFERENCES notes(id),
+    FOREIGN KEY(source) REFERENCES notes(id)
+);
